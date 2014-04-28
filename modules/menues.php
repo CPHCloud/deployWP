@@ -15,7 +15,7 @@ class deploy_menues extends deployWP_module {
 		/* Define the file to save the local menues in */
 		$file = WP_DEPLOY_ENV_DIR.'/menues.json';
 
-		/* Get all menues - exit the action if none are found */	
+		/* Get all menues - exit the action if none are found */
 		if(!$menues = get_terms('nav_menu'))
 			return false;
 
@@ -39,16 +39,16 @@ class deploy_menues extends deployWP_module {
 		/*
 		Get menu locations and their corresponding menues
 		*/
-	   if($locations = get_theme_mod('nav_menu_locations')){
-			foreach($locations as &$location){
-				$location = get_term($location, 'nav_menu');
-			}
-	   }
+	    if($locations = get_theme_mod('nav_menu_locations')){
+		 	foreach($locations as &$location){
+		 		$location = get_term($location, 'nav_menu');
+		 	}
+	    }
 
-	   /*
-	   Save all the properties we need in the $data
-	   variable and convert it to JSON
-	   */
+		/*
+		Save all the properties we need in the $data
+		variable and convert it to JSON
+		*/
 		$data = json_encode(array(
 			'base_url' 	=> WP_BASE_URL,
 			'locations' => $locations,
@@ -67,7 +67,7 @@ class deploy_menues extends deployWP_module {
 		global $deployWP;
 
 		/* Define the file to get the menues from */
-		$file = WP_DEPLOY_ENV_DIR.'/menues.json';
+		$file = $this->deploy_from_dir.'/menues.json';
 
 		/* Check if the file exists before we proceed */
 		if(!file_exists($file))

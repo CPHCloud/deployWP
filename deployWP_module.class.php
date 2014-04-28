@@ -20,6 +20,7 @@ class deployWP_module {
 		$this->env_dir 			= '';
 
 		$this->deploy_from_dir  = WP_DEPLOY_DIR.'/envs/'.$this->deploy_from;
+		
 	}
 
 
