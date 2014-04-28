@@ -1,5 +1,5 @@
 <?
 
-$deployWP->modules = array('activated_plugins');
+$deployWP->modules = array('activated_plugins', 'acf', 'menues');
 
 ?>

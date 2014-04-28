@@ -68,12 +68,14 @@ function do_deploy(){
 		foreach($deployWP->modules as $module => $file){
 
 			$module_name 				= $module;
-			$deployWP->current_module 	= $module_name;
 
 			if(file_exists($file)){
 				
 				require($file);
-				$module = new $module_name();
+				$classname = 'deploy_'.$module_name;
+				$module = new $classname();
+
+				$deployWP->current_module 	= $module_name;
 				
 				$module = apply_filters('deployWP/pre', $module);
 				$module = apply_filters('deployWP/pre/'.$module_name, $module);

@@ -6,7 +6,7 @@ EXAMPLE DEPLOY MODULE
 *********************************
 */
 
-class activated_plugins extends deployWP_module {
+class deploy_activated_plugins extends deployWP_module {
 
 	/**
 	 * undocumented function
