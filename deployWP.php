@@ -4,14 +4,20 @@ Plugin Name: DeployWP
 */
 
 define('WP_DEPLOY_DIR', dirname(__FILE__));
-define('WP_DEPLOY_FILES_DIR', WP_DEPLOY_DIR.'/envs');
+define('WP_DEPLOY_CONTENT_DIR', WP_CONTENT_DIR.'/deployWP');
+define('WP_DEPLOY_FILES_DIR', WP_DEPLOY_CONTENT_DIR.'/envs');
 define('WP_DEPLOY_ENV_DIR', WP_DEPLOY_FILES_DIR.'/'.WP_ENV);
+
+/* Create neccesary files */
+if(!file_exists(WP_DEPLOY_CONTENT_DIR))
+	mkdir(WP_DEPLOY_CONTENT_DIR);
 
 if(!file_exists(WP_DEPLOY_FILES_DIR))
 	mkdir(WP_DEPLOY_FILES_DIR);
 
 if(!file_exists(WP_DEPLOY_ENV_DIR))
 	mkdir(WP_DEPLOY_ENV_DIR);
+
 
 class WP_Deploy {
 
@@ -93,7 +99,8 @@ function do_deploy(){
 						$module->collect();
 					}
 				}
-				elseif(in_array(WP_ENV, $module->deploy_in)){
+				
+				if(in_array(WP_ENV, $module->deploy_in)){
 					
 					$module = apply_filters('deployWP/deploy', $module);
 					$module = apply_filters('deployWP/deploy/'.$module_name, $module);
