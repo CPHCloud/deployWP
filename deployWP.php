@@ -54,24 +54,59 @@ function do_deploy(){
 	
 	global $deployWP;
 
-	$deployWP->modules = apply_filters('deploy/modules', $deployWP->modules);
+	require_once(WP_DEPLOY_DIR.'/deployWP_module.class.php');
 
 	if(is_array($deployWP->modules)){
-		foreach($deployWP->modules as $module){
-			$file = WP_DEPLOY_DIR.'/modules/'.$module.'.php';
-			$deployWP->current_module = $module;
+
+		foreach($deployWP->modules as $k => $module){
+			$deployWP->modules[$module] = WP_DEPLOY_DIR.'/modules/'.$module.'.php';
+			unset($deployWP->modules[$k]);
+		}
+
+		$deployWP->modules = apply_filters('deployWP/modules', $deployWP->modules);
+
+		foreach($deployWP->modules as $module => $file){
+
+			$module_name 				= $module;
+			$deployWP->current_module 	= $module_name;
+
 			if(file_exists($file)){
+				
 				require($file);
+				$module = new $module_name();
+				
+				$module = apply_filters('deployWP/pre', $module);
+				$module = apply_filters('deployWP/pre/'.$module_name, $module);
+
+				if(in_array(WP_ENV, $module->collect_in)){
+					
+					$module = apply_filters('deployWP/collect', $module);
+					$module = apply_filters('deployWP/collect/'.$module_name, $module);
+					
+					if(!$module->collect_on_front){
+						if(is_admin())
+							$module->collect();
+					}
+					else{
+						$module->collect();
+					}
+				}
+				elseif(in_array(WP_ENV, $module->deploy_in)){
+					
+					$module = apply_filters('deployWP/deploy', $module);
+					$module = apply_filters('deployWP/deploy/'.$module_name, $module);
+
+					if(!$module->deploy_on_front){
+						if(is_admin())
+							$module->deploy();
+					}
+					else{
+						$module->deploy();
+					}
+				}
+
 			}
 		}
-	}
-
-	do_action("deploy/".WP_ENV);
-	if(is_admin()){
-		do_action("deploy-admin/".WP_ENV);
-	}
-	else{
-		do_action("deploy-front/".WP_ENV);
 	}
 }
 add_action('init', 'do_deploy');
