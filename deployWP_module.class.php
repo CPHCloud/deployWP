@@ -19,8 +19,18 @@ class deployWP_module {
 		$this->deploy_on_front 	= false;
 		$this->env_dir 			= '';
 
-		$this->deploy_from_dir  = WP_DEPLOY_DIR.'/envs/'.$this->deploy_from;
+		$this->set_deploy_from_dir();
 		
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Troels Abrahamsen
+	 **/
+	function set_deploy_from_dir(){
+		$this->deploy_from_dir  = WP_DEPLOY_FILES_DIR.'/'.$this->deploy_from;
 	}
 
 

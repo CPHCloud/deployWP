@@ -59,7 +59,7 @@ require('settings.php');
 function do_deploy(){
 	
 	global $deployWP;
-
+	
 	require_once(WP_DEPLOY_DIR.'/deployWP_module.class.php');
 
 	if(is_array($deployWP->modules)){
@@ -86,6 +86,8 @@ function do_deploy(){
 				$module = apply_filters('deployWP/pre', $module);
 				$module = apply_filters('deployWP/pre/'.$module_name, $module);
 
+				$module->set_deploy_from_dir();
+
 				if(in_array(WP_ENV, $module->collect_in)){
 					
 					$module = apply_filters('deployWP/collect', $module);
@@ -101,7 +103,7 @@ function do_deploy(){
 				}
 				
 				if(in_array(WP_ENV, $module->deploy_in)){
-					
+
 					$module = apply_filters('deployWP/deploy', $module);
 					$module = apply_filters('deployWP/deploy/'.$module_name, $module);
 

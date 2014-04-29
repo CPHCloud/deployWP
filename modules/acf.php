@@ -68,11 +68,12 @@ class deploy_acf extends deployWP_module {
 		global $deployWP;
 
 		/* The path to the file that registers the fields */
-		$file 	  = $deploy->deploy_from_dir.'/register-acf-fields.php';
+		$file 	  = $this->deploy_from_dir.'/register-acf-fields.php';
 
 		/* We are live - or dev or staging - fetch the file that registers the fields. */
-		if(file_exists($file))
+		if(file_exists($file)){
 			require_once($file);
+		}
 	}
 }
 
