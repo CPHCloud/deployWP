@@ -1,5 +1,4 @@
-<?
-
+<?php
 $deployWP->modules = array();
 
 ?>

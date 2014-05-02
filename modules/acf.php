@@ -1,5 +1,4 @@
-<?
-
+<?php
 
 class deploy_acf extends deployWP_module {
 
