@@ -2,6 +2,10 @@
 
 class deploy_acf extends deployWP_module {
 
+	function setup(){
+		$this->deploy_on_front = true;
+	}
+
 	function collect(){
 		global $deployWP;
 
@@ -75,5 +79,6 @@ class deploy_acf extends deployWP_module {
 		}
 	}
 }
+
 
 ?>

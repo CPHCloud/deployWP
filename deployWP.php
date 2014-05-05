@@ -81,6 +81,9 @@ function do_deploy(){
 				require($file);
 				$classname 	= 'deploy_'.$module_name;
 				$module 	= new $classname();
+				if(method_exists($module, 'setup')){
+					$module->setup();
+				}
 
 				$deployWP->current_module 	= $module_name;
 				
