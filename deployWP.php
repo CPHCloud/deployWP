@@ -95,10 +95,12 @@ function do_deploy(){
 					
 					if(!$module->collect_on_front){
 						if(is_admin())
-							$module->collect();
+							if($module->collect() !== false)
+								$module->__after_collect();
 					}
 					else{
-						$module->collect();
+						if($module->collect() !== false)
+							$module->__after_collect();
 					}
 				}
 				
@@ -109,10 +111,12 @@ function do_deploy(){
 
 					if(!$module->deploy_on_front){
 						if(is_admin())
-							$module->deploy();
+							if($module->deploy() !== false)
+								$module->__after_deploy();
 					}
 					else{
-						$module->deploy();
+						if($module->deploy() !== false)
+							$module->__after_deploy();
 					}
 				}
 
