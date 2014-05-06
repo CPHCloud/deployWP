@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 *********************************
 deployWP Module class
@@ -39,6 +39,7 @@ class deployWP_module {
 			$this->last_deploy 	= 0;
 
 		$this->set_deploy_from_dir();
+		$this->set_env_dir();
 		
 	}
 
@@ -79,6 +80,15 @@ class deployWP_module {
 		$this->deploy_from_dir  = WP_DEPLOY_FILES_DIR.'/'.$this->deploy_from;
 	}
 
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Troels Abrahamsen
+	 **/
+	function set_env_dir(){
+		$this->env_dir  = WP_DEPLOY_FILES_DIR.'/'.WP_ENV;
+	}
 }
 
 
