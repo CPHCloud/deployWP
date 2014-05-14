@@ -35,6 +35,7 @@ class deployWP_module {
 		$this->collect_on_front = false;
 		$this->deploy_on_front 	= false;
 		$this->env_dir 			= '';
+
 		if(!$this->last_deploy = get_transient($this->id.'_last_deploy'))
 			$this->last_deploy 	= 0;
 
@@ -51,7 +52,7 @@ class deployWP_module {
 	 * @return void
 	 * @author Troels Abrahamsen
 	 **/
-	protected function __after_collect(){
+	function __after_collect(){
 		if(method_exists($this, 'after_collect'))
 			$this->after_collect();
 	}
@@ -64,7 +65,7 @@ class deployWP_module {
 	 * @return void
 	 * @author Troels Abrahamsen
 	 **/
-	protected function __after_deploy(){
+	function __after_deploy(){
 		set_transient($this->id.'_last_deploy', time());
 		if(method_exists($this, 'after_deploy'))
 			$this->after_deploy();

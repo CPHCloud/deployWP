@@ -106,6 +106,7 @@ function do_deploy(){
 						if($module->collect() !== false)
 							$module->__after_collect();
 					}
+
 				}
 				
 				if(in_array(WP_ENV, $module->deploy_in)){

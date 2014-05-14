@@ -63,7 +63,6 @@ class deploy_acf extends deployWP_module {
 			$file = fopen($file, 'w+');
 			fwrite($file, $contents);
 			fclose($file);
-
 		}
 	}
 
@@ -79,6 +78,5 @@ class deploy_acf extends deployWP_module {
 		}
 	}
 }
-
 
 ?>
