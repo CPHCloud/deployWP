@@ -62,22 +62,18 @@ function do_deploy(){
 	global $deployWP;
 	
 	require_once(WP_DEPLOY_DIR.'/deployWP_module.class.php');
+	
+	apply_filters('deployWP');
+	apply_filters('deployWP/enable_modules');
 
 	if(is_array($deployWP->modules)){
-
-		foreach($deployWP->modules as $k => $module){
-			$deployWP->modules[$module] = WP_DEPLOY_DIR.'/modules/'.$module.'.php';
-			unset($deployWP->modules[$k]);
-		}
 
 		$deployWP->modules = apply_filters('deployWP/modules', $deployWP->modules);
 
 		foreach($deployWP->modules as $module => $file){
 
 			$module_name 				= $module;
-
 			if(file_exists($file)){
-				
 				require($file);
 				$classname 	= 'deploy_'.$module_name;
 				$module 	= new $classname();
@@ -158,6 +154,40 @@ function deploy_notices() {
 }
 add_action('admin_notices', 'deploy_notices');
 
+
+
+/**
+ * undocumented function
+ *
+ * @return void
+ **/
+function register_deploy_module($handle, $file){
+	global $deployWP;
+	$deployWP->registered_modules[$handle] = $file;
+}
+
+
+/**
+ * undocumented function
+ *
+ * @return void
+ **/
+function enable_deploy_module($handle){
+	global $deployWP;
+	if($file = $deployWP->registered_modules[$handle])
+		$deployWP->modules[$handle] = $file;
+}
+
+/**
+ * undocumented function
+ *
+ * @return void
+ **/
+function disable_deploy_module($handle){
+	global $deployWP;
+	if($file = $deployWP_modules[$handle])
+		unset($deployWP->modules[$handle]);
+}
 
 
 /* HELPERS */
