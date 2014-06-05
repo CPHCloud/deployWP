@@ -63,8 +63,8 @@ function do_deploy(){
 	
 	require_once(WP_DEPLOY_DIR.'/deployWP_module.class.php');
 	
-	apply_filters('deployWP');
-	apply_filters('deployWP/enable_modules');
+	do_action('deployWP');
+	do_action('deployWP/enable_modules');
 
 	if(is_array($deployWP->modules)){
 
