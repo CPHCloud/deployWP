@@ -29,7 +29,7 @@ class deployWP_module {
 	function __construct(){
 
 		$this->id 				= 'deployWPmodule'.get_class($this);
-		$this->collect_in 		= array('local', 'dev', 'staging', 'production');
+		$this->collect_in 		= array('local', 'dev', 'staging');
 		$this->deploy_in  		= array('staging', 'dev');
 		$this->deploy_from      = 'local';
 		$this->collect_on_front = false;

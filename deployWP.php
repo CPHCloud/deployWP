@@ -62,7 +62,7 @@ function do_deploy(){
 	global $deployWP;
 	
 	require_once(WP_DEPLOY_DIR.'/deployWP_module.class.php');
-	
+
 	do_action('deployWP');
 	do_action('deployWP/enable_modules');
 
