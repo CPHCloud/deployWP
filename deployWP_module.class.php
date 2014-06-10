@@ -22,7 +22,7 @@ class deployWP_module {
 
 	/**
 	 * Runs on construction and sets the basic variables and
-	 * calls any needed methods for settign up the module.
+	 * calls any needed methods for setting up the module.
 	 *
 	 * @return void
 	 **/
@@ -35,6 +35,7 @@ class deployWP_module {
 		$this->collect_on_front = false;
 		$this->deploy_on_front 	= false;
 		$this->env_dir 			= '';
+		$this->env 				= WP_ENV;
 
 		if(!$this->last_deploy = get_transient($this->id.'_last_deploy'))
 			$this->last_deploy 	= 0;
