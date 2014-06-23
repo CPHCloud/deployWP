@@ -125,7 +125,7 @@ function do_deploy(){
 		}
 	}
 }
-add_action('init', 'do_deploy');
+add_action('init', 'do_deploy', 1);
 
 
 function deploy_notices() {
