@@ -25,6 +25,8 @@ class WP_Deploy {
 	function __construct(){
 		$this->messages = array();
 		$this->current_module = '';
+		$this->collecting = false;
+		$this->deploying = false;
 	}
 
 	function message($msg){
@@ -56,6 +58,11 @@ class WP_Deploy {
 
 $deployWP = new WP_Deploy();
 require('settings.php');
+
+function deploywp(){
+	global $deployWP;
+	return $deployWP;
+}
 
 function do_deploy(){
 	
@@ -90,6 +97,8 @@ function do_deploy(){
 
 				if(in_array(WP_ENV, $module->collect_in)){
 					
+					$deployWP->collecting = true;
+
 					$module = apply_filters('deployWP/collect', $module);
 					$module = apply_filters('deployWP/collect/'.$module_name, $module);
 					
@@ -103,13 +112,15 @@ function do_deploy(){
 							$module->__after_collect();
 					}
 
+					$deployWP->collecting = false;
+
 				}
 				
 				if(in_array(WP_ENV, $module->deploy_in)){
 
 					$module = apply_filters('deployWP/deploy', $module);
 					$module = apply_filters('deployWP/deploy/'.$module_name, $module);
-
+					$deployWP->deploying = true;
 					if(!$module->deploy_on_front){
 						if(is_admin())
 							if($module->deploy() !== false)
@@ -119,6 +130,7 @@ function do_deploy(){
 						if($module->deploy() !== false)
 							$module->__after_deploy();
 					}
+					$deployWP->deploying = false;
 				}
 
 			}
