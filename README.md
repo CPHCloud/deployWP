@@ -12,7 +12,7 @@ While still in its infancy the ambition is that this plugin will provide the pro
 Coming soon...
 
 ####Contribute
-Pull requests are welcomed :)
+Pull requests are welcome :)
 
 ####Practical
 Maintained by [@supertroels](http://www.github.com/supertroels) for [@CPHCloud](http://www.github.com/CPHCloud)
